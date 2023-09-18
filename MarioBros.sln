@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MarioBros", "MarioBros.vcxproj", "{F6236CD7-6492-43B0-8062-E9751EE8452E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6236CD7-6492-43B0-8062-E9751EE8452E}.Debug|x64.ActiveCfg = Debug|x64
+		{F6236CD7-6492-43B0-8062-E9751EE8452E}.Debug|x64.Build.0 = Debug|x64
+		{F6236CD7-6492-43B0-8062-E9751EE8452E}.Debug|x86.ActiveCfg = Debug|Win32
+		{F6236CD7-6492-43B0-8062-E9751EE8452E}.Debug|x86.Build.0 = Debug|Win32
+		{F6236CD7-6492-43B0-8062-E9751EE8452E}.Release|x64.ActiveCfg = Release|x64
+		{F6236CD7-6492-43B0-8062-E9751EE8452E}.Release|x64.Build.0 = Release|x64
+		{F6236CD7-6492-43B0-8062-E9751EE8452E}.Release|x86.ActiveCfg = Release|Win32
+		{F6236CD7-6492-43B0-8062-E9751EE8452E}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E1C18608-2610-4BE9-850B-7D94440FFA7C}
+	EndGlobalSection
+EndGlobal
