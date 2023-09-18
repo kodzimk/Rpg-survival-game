@@ -29,18 +29,25 @@ void Game::initWindow()
 
 void Game::initKeys()
 {
-	this->supportedKeys.emplace("Escape", sf::Keyboard::Key::Escape);
-	this->supportedKeys.emplace("A", sf::Keyboard::Key::A);
-	this->supportedKeys.emplace("D", sf::Keyboard::Key::D);
-	this->supportedKeys.emplace("W", sf::Keyboard::Key::W);
-	this->supportedKeys.emplace("S", sf::Keyboard::Key::S);
+	std::ifstream ifs("Config/supportedKeys.ini.txt");
 
-	std::cout << this->supportedKeys.at("A");
+	if (ifs.is_open())
+	{
+		std::string key = "";
+		int key_value = 0;
+		while (ifs >> key >> key_value)
+		{
+			this->supportedKeys[key] = key_value;
+		}
+	}
+
+	ifs.close();
+
 }
 
 void Game::initStates()
 {
-	this->states.push(new GameState(this->window,this->supportedKeys));
+	this->states.push(new GameState(this->window,&this->supportedKeys));
 }
 
 
@@ -48,8 +55,8 @@ void Game::initStates()
 Game::Game()
 {
 	this->initWindow();
-	this->initStates();
 	this->initKeys();
+	this->initStates();
 }
 
 Game::~Game()
