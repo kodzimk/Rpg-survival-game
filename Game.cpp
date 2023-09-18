@@ -1,4 +1,5 @@
 #include "Game.h"
+
 //Static functions
 
 //Initializer functions
@@ -47,7 +48,7 @@ void Game::initKeys()
 
 void Game::initStates()
 {
-	this->states.push(new GameState(this->window,&this->supportedKeys));
+	this->states.push(new MainMenuState(this->window, &this->supportedKeys,&this->states));
 }
 
 
@@ -69,8 +70,6 @@ Game::~Game()
 		this->states.pop();
 	}
 }
-
-
 
 //Functions
 void Game::endApplication()

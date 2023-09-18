@@ -39,5 +39,5 @@ public:
 	virtual void render(sf::RenderTarget* target);
 	
 };
-#endif // ! ENTITY_H
+#endif
 
