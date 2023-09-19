@@ -80,7 +80,7 @@ void EditorState::updateButtons()
 	}
 }
 
-void EditorState::renderButtons(sf::RenderTarget* target)
+void EditorState::renderButtons(sf::RenderTarget& target)
 {
 	for (auto& it : buttons)
 	{
@@ -103,7 +103,7 @@ void EditorState::render(sf::RenderTarget* target)
 		target = this->window;
 
 
-	this->renderButtons(target);
+	this->renderButtons(*target);
 
 	/*sf::Text mouseText;
 	mouseText.setPosition(this->mousePosView.x,this->mousePosView.y -50);
