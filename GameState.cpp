@@ -23,7 +23,7 @@ void GameState::initKeybinds()
 
 void GameState::initTextures()
 {
-	if (!this->textures["PLAYER_IDLE"].loadFromFile("Resources/Images/Sprites/Player/PLAYER_SHEET.png"))
+	if (!this->textures["PLAYER_SHEET"].loadFromFile("Resources/Images/Sprites/Player/PLAYER_SHEET.png"))
 	{
 		throw"ERROR GAMESTATE COULD NOT LOAD TEXTURE";
 	}
@@ -31,7 +31,7 @@ void GameState::initTextures()
 
 void GameState::initPlayers()
 {
-	this->player = new Player(0,0,this->textures["PLAYER_IDLE"]);
+	this->player = new Player(0,0,this->textures["PLAYER_SHEET"]);
 }
 
 GameState::GameState(sf::RenderWindow* window,std::map<std::string,int>* supportedKeys, std::stack<State*>* states)
@@ -69,6 +69,7 @@ void GameState::update(const float& dt)
 {
 	this->updateMousePositions();
 	this->updateInput(dt);
+
 	this->player->update(dt);
 }
 

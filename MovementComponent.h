@@ -17,6 +17,8 @@
 #include"SFML/Window.hpp"
 #include"SFML/System.hpp"
 
+enum movement_stats{ IDLE = 0,MOVING,MOVEING_LEFT,MOVING_RIGHT,MOVING_UP,MOVING_DOWN };
+
 
 class MovementComponent
 {
@@ -40,6 +42,9 @@ public:
 	const sf::Vector2f& getVelocity() const;
 
 	//Functions
+	const bool getState(const short unsigned state) const;
+
+
 	void move(const float x, const float y, const float& dt);
 	void update(const float& dt);
 
