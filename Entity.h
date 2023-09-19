@@ -1,5 +1,5 @@
 #ifndef  ENTITY_H
-#define ENTITY_H
+#define  ENTITY_H
 
 
 #include<iostream>
@@ -21,18 +21,24 @@
 class Entity
 {
 private:
+	void initVariables();
 
 protected:
-	sf::RectangleShape shape;
+	sf::Texture* texture;
+	sf::Sprite* sprite;
+
 	float movementSpeed;
 
 
 public:
 	Entity();
 	virtual ~Entity();
+	//Component Functions
+	void createSprite(sf::Texture* texture);
+
 
 	//Functions
-
+	
 	virtual void move(const float& dt,const float x,const float y);
 
 	virtual void update(const float& dt);

@@ -11,11 +11,15 @@ class MainMenuState :
 private:
     //Variables
     sf::RectangleShape background;
+    sf::Texture backgroundTexture;
     sf::Font font;
     
 
     std::map<std::string, Button*> buttons;
 
+    //Functions
+    void initVariables();
+    void initBackGround();
     void initFonts();
     void initKeybinds();
     void initButtons();
@@ -25,7 +29,6 @@ public:
     virtual ~MainMenuState();
 
     //Functions
-    void endState();
     void updateInput(const float& dt);
     void updateButtons();
     void renderButtons(sf::RenderTarget* target = NULL);

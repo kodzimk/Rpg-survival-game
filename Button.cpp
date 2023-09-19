@@ -40,8 +40,6 @@ const bool Button::isPressed() const
 	return false;
 }
 
-
-
 //Functions
 void Button::update(const sf::Vector2f mousePos)
 {
