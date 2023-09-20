@@ -17,7 +17,7 @@
 #include"SFML/Window.hpp"
 #include"SFML/System.hpp"
 
-enum movement_stats{ IDLE = 0,MOVING,MOVEING_LEFT,MOVING_RIGHT,MOVING_UP,MOVING_DOWN };
+enum movement_stats{ IDLE = 0,MOVING,MOVING_LEFT,MOVING_RIGHT,MOVING_UP,MOVING_DOWN };
 
 
 class MovementComponent
@@ -39,6 +39,7 @@ public:
 
 
 	//Accessors
+	const float& getMaxVelocity()const;
 	const sf::Vector2f& getVelocity() const;
 
 	//Functions

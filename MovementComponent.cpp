@@ -12,12 +12,19 @@ MovementComponent::~MovementComponent()
 
 }
 
-//Functions
+//Accessors
+const float& MovementComponent::getMaxVelocity() const
+{
+	return this->maxVelocity;
+}
+
+
 const sf::Vector2f& MovementComponent::getVelocity() const
 {
 	return this->velocity;
 }
 
+//Functions
 const bool MovementComponent::getState(const short unsigned state) const
 {
 	switch (state)
@@ -30,7 +37,7 @@ const bool MovementComponent::getState(const short unsigned state) const
 		if (this->velocity.x != 0.f || this->velocity.y != 0.f)
 			return true;
 		break;
-	case MOVEING_LEFT:
+	case MOVING_LEFT:
 		if (this->velocity.x < 0.f)
 			return true;
 		break;

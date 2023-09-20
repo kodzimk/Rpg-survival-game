@@ -7,7 +7,7 @@ class Player:public Entity
 {
 private:
 	//Variables
-
+	bool attacking;
 
 
 	//Initialzier functions
