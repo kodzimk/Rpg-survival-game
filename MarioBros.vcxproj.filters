@@ -22,6 +22,9 @@
     <Filter Include="Entities\Components">
       <UniqueIdentifier>{cd9f78b5-596f-41d9-8cdc-5393d237b312}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tile">
+      <UniqueIdentifier>{457357e5-888c-4ae2-8050-b7ffc896d43b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -60,6 +63,9 @@
     <ClCompile Include="HitBoxComponent.cpp">
       <Filter>Entities\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Tile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -94,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="HitBoxComponent.h">
       <Filter>Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Tile</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

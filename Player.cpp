@@ -33,45 +33,81 @@ Player::~Player() {
 }
 
 //Functions
+void Player::updateAttack()
+{
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		this->attacking = true;
+	}
+}
+
+void Player::updateAnimations(const float& dt)
+{
+
+	if (this->attacking)
+	{
+		if (this->sprite.getScale().x > 0.f)
+		{
+			this->sprite.setOrigin(96.f, 0.f);
+		}
+		else 
+		{
+			this->sprite.setOrigin(258.f + 96.f, 0.f);
+		}
+
+		if (this->animationComponent->play("ATTACK", dt, true))
+		{
+
+			this->attacking = false;
+			if (this->sprite.getScale().x > 0.f)
+			{
+				this->sprite.setOrigin(0.f, 0.f);
+			}
+			else
+			{
+				this->sprite.setOrigin(258.f, 0.f);
+			}
+		}
+	}
+
+	if (this->movementComponent->getState(IDLE))
+	{
+		this->animationComponent->play("IDLE", dt);
+	}
+	else if (this->movementComponent->getState(MOVING_LEFT))
+	{
+		if (this->sprite.getScale().x < 0.f)
+		{
+			this->sprite.setOrigin(0.f, 0.f);
+			this->sprite.setScale(1.f, 1.f);
+		}
+		this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
+	}
+	else if (this->movementComponent->getState(MOVING_RIGHT))
+	{
+		if (this->sprite.getScale().x > 0.f)
+		{
+			this->sprite.setOrigin(258.f, 0.f);
+			this->sprite.setScale(-1.f, 1.f);
+		}
+		this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
+	}
+	else if (this->movementComponent->getState(MOVING_UP))
+	{
+		this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
+	}
+	else if (this->movementComponent->getState(MOVING_DOWN))
+	{
+		this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
+	}
+}
 
 void Player::update(const float& dt)
 {
 		this->movementComponent->update(dt);
 
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
-			this->attacking = true;
-		}
-		if (this->attacking)
-		{
-			if (this->animationComponent->play("ATTACK", dt, true))
-				this->attacking = false;
-		}
-
-		if (this->movementComponent->getState(IDLE))
-		{
-			this->animationComponent->play("IDLE", dt);
-		}
-		else if (this->movementComponent->getState(MOVING_LEFT))
-		{
-			this->sprite.setOrigin(0.f, 0.f);
-			this->sprite.setScale(1.f, 1.f);
-			this->animationComponent->play("WALK", dt,this->movementComponent->getVelocity().x,this->movementComponent->getMaxVelocity());
-		}
-		else if (this->movementComponent->getState(MOVING_RIGHT))
-		{
-			this->sprite.setOrigin(258.f, 0.f);;
-			this->sprite.setScale(-1.f, 1.f);
-			this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
-		}
-		else if (this->movementComponent->getState(MOVING_UP))
-		{
-			this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
-		}
-		else if (this->movementComponent->getState(MOVING_DOWN))
-		{
-			this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
-		}
+		this->updateAttack();
+		this->updateAnimations(dt);
 
 		this->hitboxComponent->update();
 }
