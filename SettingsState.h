@@ -15,15 +15,20 @@ private:
 
 
     std::map<std::string, gui::Button*> buttons;
+    std::map<std::string, gui::DropDownList*> dropdownList;
 
-    gui::DropDownList* ddl;
+    sf::Text optionsText;
+
+    std::vector<sf::VideoMode> modes;
 
     //Functions
     void initVariables();
     void initBackGround();
     void initFonts();
     void initKeybinds();
-    void initButtons();
+    void initGui();
+    void initText();
+
 public:
     SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
     virtual ~SettingsState();
@@ -32,8 +37,8 @@ public:
 
     //Functions
     void updateInput(const float& dt);
-    void updateButtons();
-    void renderButtons(sf::RenderTarget& target);
+    void updateGui(const float& dt);
+    void renderGui(sf::RenderTarget& target);
     void update(const float& dt);
     void render(sf::RenderTarget* target = NULL);
 };

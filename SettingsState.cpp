@@ -1,8 +1,9 @@
 #include "SettingsState.h"
 
+//Initializer functions
 void SettingsState::initVariables()
 {
-
+	this->modes = sf::VideoMode::getFullscreenModes();
 }
 
 void SettingsState::initBackGround()
@@ -49,15 +50,36 @@ void SettingsState::initKeybinds()
 
 }
 
-void SettingsState::initButtons()
+void SettingsState::initGui()
 {
-	this->buttons["EXIT_STATE"] = new gui::Button(300, 780, 250, 50, &this->font, "Quit", 50,
+	this->buttons["BACK"] = new gui::Button(1500.f, 880.f, 250.f, 50.f, &this->font, "Back", 50,
 		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	std::string li[] = { "1312","23232","323","323","3232" };
+	this->buttons["APPLY"] = new gui::Button(1300.f, 880.f, 250.f, 50.f, &this->font, "Apply", 50,
+		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->ddl = new gui::DropDownList(100,100,200,50,font,li,5);
+	std::vector<std::string> modes_str;
+	for (auto& i : this->modes)
+	{
+		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
+	}
+
+	
+	this->dropdownList["RESOLUTION"] = new gui::DropDownList(800, 400, 200, 50, font, modes_str.data(), modes_str.size());
+}
+
+void SettingsState::initText()
+{
+	this->optionsText.setFont(this->font);
+	this->optionsText.setPosition(sf::Vector2f(100.f,450.f));
+	this->optionsText.setCharacterSize(30);
+	this->optionsText.setFillColor(sf::Color(255,255,255,200));
+
+	this->optionsText.setString(
+		"Resultion \n\nFullscreen\n\nVsync \n\nAntialiasing \n\n" 
+	);
 }
 
 
@@ -68,7 +90,8 @@ SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, int
 	this->initBackGround();
 	this->initFonts();
 	this->initKeybinds();
-	this->initButtons();
+	this->initGui();
+	this->initText();
 }
 SettingsState::~SettingsState()
 {
@@ -78,7 +101,13 @@ SettingsState::~SettingsState()
 	{
 		delete it->second;
 	}
-	delete this->ddl;
+
+	auto it2 = this->dropdownList.begin();
+
+	for (it2 = this->dropdownList.begin(); it2 != this->dropdownList.end(); it2++)
+	{
+		delete it2->second;
+	}
 }
 
 //Accessors
@@ -90,7 +119,7 @@ void SettingsState::updateInput(const float& dt)
 
 }
 
-void SettingsState::updateButtons()
+void SettingsState::updateGui(const float& dt)
 {
 	for (auto& it : buttons)
 	{
@@ -98,16 +127,30 @@ void SettingsState::updateButtons()
 	}
 
 
-	if (this->buttons["EXIT_STATE"]->isPressed())
-	{
-		this->endState();
-	}
+		if (this->buttons["BACK"]->isPressed())
+		{
+			this->endState();
+		}
 
+		if (this->buttons["APPLY"]->isPressed())
+		{
+			this->window->create(this->modes[this->dropdownList["RESOLUTION"]->getActiveElemtnId()],"Test",sf::Style::Default );
+		}
+
+	for (auto& it : this->dropdownList)
+	{
+		it.second->update(this->mousePosView,dt);
+	}
 }
 
-void SettingsState::renderButtons(sf::RenderTarget& target)
+void SettingsState::renderGui(sf::RenderTarget& target)
 {
-	for (auto& it : buttons)
+	for (auto& it : this->buttons)
+	{
+		it.second->render(target);
+	}
+
+	for (auto& it : this-> dropdownList)
 	{
 		it.second->render(target);
 	}
@@ -118,9 +161,8 @@ void SettingsState::update(const float& dt)
 	this->updateMousePositions();
 	this->updateInput(dt);
 
-	this->updateButtons();
+	this->updateGui(dt);
 
-	this->ddl->update(this->mousePosView, dt);
 }
 
 void SettingsState::render(sf::RenderTarget* target)
@@ -131,9 +173,8 @@ void SettingsState::render(sf::RenderTarget* target)
 
 	target->draw(this->background);
 
-	this->renderButtons(*target);
-
-	this->ddl->render(*target);
+	this->renderGui(*target);
+	target->draw(this->optionsText);
 }
 
 

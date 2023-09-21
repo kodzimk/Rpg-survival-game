@@ -20,6 +20,7 @@ namespace gui
 	{
 	private:
 		short unsigned buttonState;
+		short unsigned id;
 
 		bool pressed;
 		bool hover;
@@ -36,18 +37,27 @@ namespace gui
 		sf::Color hoverColor;
 		sf::Color activeColor;
 
+		sf::Color outlineIdColor;
+		sf::Color outlingHoverColor;
+		sf::Color outlineActiveColor;
+
+
 	public:
 		Button(float x, float y, float width, float height, sf::Font* font, std::string
 			text, unsigned character_size, sf::Color text_idle_color,
 			sf::Color text_hover_color, sf::Color text_active_color,
-			sf::Color idle_Color, sf::Color hover_Color, sf::Color active_Color);
+			sf::Color idle_Color, sf::Color hover_Color, sf::Color oactive_Color,
+			sf::Color outline_idle_Color = sf::Color::Transparent, sf::Color outline_hover_Color = sf::Color::Transparent, sf::Color outline_active_Color = sf::Color::Transparent ,
+			short unsigned id = 0);
 		~Button();
 
 		const bool isPressed() const;
-		const std::string& getText() const;
+		const std::string getText() const;
+		const short unsigned& getId()const;
 
 		//Modifiers
 		void setText(const std::string text);
+		void setId(const unsigned id);
 
 		//Functions
 		void update(const sf::Vector2f& mousePos);
@@ -70,6 +80,8 @@ namespace gui
 		DropDownList(float x,float y,float width,float height,sf::Font& font, std::string list[], unsigned nrOfElements, unsigned default_index = 0);
 		~DropDownList();
 
+		//Acessors
+		const unsigned short& getActiveElemtnId() const;
 		//functions
 		const bool getKeytime();
 		void updateKeytime(const float& dt);
