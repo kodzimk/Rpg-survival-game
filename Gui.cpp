@@ -38,12 +38,23 @@ gui::Button::~Button()
 
 }
 
+//Accessers
 const bool gui::Button::isPressed() const
 {
 	if (this->buttonState == BTN_ACTIVE)
 		return true;
 
 	return false;
+}
+
+const std::string& gui::Button::getText() const
+{
+	return this->text.getString();
+}
+
+void gui::Button::setText(const std::string text)
+{
+	this->text.setString(text);
 }
 
 //Functions
@@ -90,4 +101,94 @@ void gui::Button::render(sf::RenderTarget& target)
 {
 	target.draw(this->shape);
 	target.draw(this->text);
+}
+
+
+
+//DropSownList Class
+gui::DropDownList::DropDownList(float x,float y,float width,float height,sf::Font& font,std::string list[], unsigned nrOfElements,unsigned default_index)
+	:font(font),showList(false),keytimeMax(1.f),keytime(0.f)
+{
+	//unsigned nrOfElements = sizeof(list) / sizeof(std::string);
+
+	for (size_t i = 0; i < nrOfElements; i++)
+	{
+		this->list.push_back(
+			new gui::Button(x, y+(i*height), width, height,
+				&this->font,list[i], 12,
+				sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
+				sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200)));
+	}
+
+	this->activeElement = new Button(*this->list[default_index]);
+
+}
+
+gui::DropDownList::~DropDownList()
+{
+	delete this->activeElement;
+	for (auto *&i: this->list)
+	{
+		delete i;
+	}
+}
+
+//Accessors
+const bool gui::DropDownList::getKeytime()
+{
+	if (this->keytime >= this->keytimeMax)
+	{
+		this->keytime = 0.f;
+		return true;
+	}
+
+	return false;
+}
+
+//Functions
+void gui::DropDownList::updateKeytime(const float& dt)
+{
+	if (this->keytime < this->keytimeMax)
+		this->keytime += 10.f * dt;
+}
+
+
+void gui::DropDownList::update(const sf::Vector2f& mousePos,const float& dt)
+{
+	this->updateKeytime(dt);
+
+	this->activeElement->update(mousePos);
+
+
+
+	if (this->activeElement->isPressed() && this->getKeytime())
+	{
+		if (this->showList == false)
+			this->showList = true;
+		else
+			this->showList = false;
+	}
+
+	if (this->showList)
+	{
+		for (auto& i : this->list)
+		{
+			i->update(mousePos);
+		}
+	}
+
+	
+}
+
+void gui::DropDownList::render(sf::RenderTarget& target)
+{
+	this->activeElement->render(target);
+
+	if (this->showList)
+	{
+		for (auto& i : this->list)
+		{
+			i->render(target);
+		}
+	}
 }

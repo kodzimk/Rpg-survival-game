@@ -54,6 +54,10 @@ void SettingsState::initButtons()
 	this->buttons["EXIT_STATE"] = new gui::Button(300, 780, 250, 50, &this->font, "Quit", 50,
 		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(100, 100, 100, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+
+	std::string li[] = { "1312","23232","323","323","3232" };
+
+	this->ddl = new gui::DropDownList(100,100,200,50,font,li,5);
 }
 
 
@@ -74,6 +78,7 @@ SettingsState::~SettingsState()
 	{
 		delete it->second;
 	}
+	delete this->ddl;
 }
 
 //Accessors
@@ -97,6 +102,7 @@ void SettingsState::updateButtons()
 	{
 		this->endState();
 	}
+
 }
 
 void SettingsState::renderButtons(sf::RenderTarget& target)
@@ -114,6 +120,7 @@ void SettingsState::update(const float& dt)
 
 	this->updateButtons();
 
+	this->ddl->update(this->mousePosView, dt);
 }
 
 void SettingsState::render(sf::RenderTarget* target)
@@ -126,6 +133,7 @@ void SettingsState::render(sf::RenderTarget* target)
 
 	this->renderButtons(*target);
 
+	this->ddl->render(*target);
 }
 
 
