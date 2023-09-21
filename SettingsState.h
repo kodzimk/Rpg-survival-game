@@ -2,7 +2,7 @@
 #define SETTINGSSTATE_H
 
 #include "State.h"
-#include "Button.h"
+#include "Gui.h"
 
 class SettingsState :
     public State
