@@ -73,7 +73,6 @@ void MainMenuState::initButtons()
 		sf::Color(100, 100, 100, 0),	sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 }
 
-
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys,states)
 {
@@ -96,7 +95,6 @@ MainMenuState::~MainMenuState()
 	}
 }
 
-
 void MainMenuState::updateInput(const float& dt)
 {
 	
@@ -115,6 +113,11 @@ void MainMenuState::updateButtons()
 	if (this->buttons["GAME_STATE"]->isPressed())
 	{
 		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+	}
+
+	if (this->buttons["SETTINGS_STATE"]->isPressed())
+	{
+		this->states->push(new SettingsState(this->window, this->supportedKeys, this->states));
 	}
 
 	if (this->buttons["EDITOR_STATE"]->isPressed())

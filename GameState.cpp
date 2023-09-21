@@ -90,7 +90,7 @@ void GameState::updatePlayerInput(const float& dt)
 
 void GameState::updateInput(const float& dt)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeytime())
 	{
 		if (!this->paused)
 			this->pauseState();
@@ -102,6 +102,7 @@ void GameState::updateInput(const float& dt)
 void GameState::update(const float& dt)
 {
 	this->updateMousePositions();
+	this->updateKeytime(dt);
 	this->updateInput(dt);
 
 	if (!this->paused)
