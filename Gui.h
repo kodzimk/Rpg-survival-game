@@ -1,17 +1,6 @@
 #ifndef GUI_H
 #define GUI_H
 
-#include<iostream>
-#include<cstdlib>
-#include<ctime>
-#include<vector>
-#include<sstream>
-
-#include"SFML/Graphics.hpp"
-#include"SFML/Audio.hpp"
-#include"SFML/Window.hpp"
-#include"SFML/System.hpp"
-
 enum button_states{BTN_IDLE = 0,BTN_HOVER,BTN_ACTIVE};
 
 namespace gui

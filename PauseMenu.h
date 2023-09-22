@@ -1,17 +1,6 @@
 #ifndef  PAUSEMENU_H
 #define PAUSEMENU_H
 
-#include<cstdlib>
-#include<iostream>
-#include<string>
-#include<map>
-#include<math.h>
-
-#include"SFML/Graphics.hpp"
-#include"SFML/Network.hpp"
-#include"SFML/Audio.hpp"
-#include"SFML/Window.hpp"
-#include"SFML/System.hpp"
 #include"Gui.h"
 
 class PauseMenu

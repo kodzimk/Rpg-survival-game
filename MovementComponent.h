@@ -2,20 +2,7 @@
 #define  MOVEMENTCOMPONENT_H
 
 
-#include<iostream>
-#include<ctime>
-#include<cstdlib>
-#include<fstream>
-#include<sstream>
-#include<stack>
-#include<vector>
-#include<map>
 
-#include"SFML/Graphics.hpp"
-#include"SFML/Network.hpp"
-#include"SFML/Audio.hpp"
-#include"SFML/Window.hpp"
-#include"SFML/System.hpp"
 
 enum movement_stats{ IDLE = 0,MOVING,MOVING_LEFT,MOVING_RIGHT,MOVING_UP,MOVING_DOWN };
 

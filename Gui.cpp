@@ -1,3 +1,4 @@
+#include"stdafx.h"
 #include "Gui.h"
 
 gui::Button::Button(float x, float y, float width, float height, sf::Font* font,
@@ -134,6 +135,7 @@ gui::DropDownList::DropDownList(float x,float y,float width,float height,sf::Fon
 	:font(font),showList(false),keytimeMax(1.f),keytime(0.f)
 {
 	//unsigned nrOfElements = sizeof(list) / sizeof(std::string);
+
 	this->activeElement = new gui::Button(
 		x, y , width, height,
 			&this->font,list[default_index], 14,
