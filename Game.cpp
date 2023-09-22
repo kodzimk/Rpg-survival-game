@@ -7,44 +7,39 @@
 void Game::initVariables()
 {
 	this->window = NULL;
-	this->fullscreen = false;
+
 	this->dt = 0.f;
+
+	this->gridSize = 50.f;
 }
+
+void Game::initGraphicsSettings()
+{
+	this->gfSettings.loadFromFile("Config/graphics.ini.txt");
+}
+
+void Game::initStateData()
+{
+	this->stateData.window = this->window;
+	this->stateData.gfxSettings = &this->gfSettings;
+	this->stateData.supportedKeys = &this->supportedKeys;
+	this->stateData.states = &this->states;
+	this->stateData.gridSize = this->gridSize;
+}
+
 
 void Game::initWindow()
 {
-
-	std::ifstream ifs("Config/window.ini.txt");
-	this->videoModes = sf::VideoMode::getFullscreenModes();
-
-
-	sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
-	std::string title = "None";
-	bool fullscreen = false;
-	unsigned framerate_limit = 120;
-	bool vertical_sync_enabled = false;
-	unsigned antialiazing_level = 0;
-
-	if (ifs.is_open())
-	{
-		std::getline(ifs, title);
-		ifs >> window_bounds.width >> window_bounds.height;
-		ifs >> fullscreen;
-		ifs >> framerate_limit;
-		ifs >> vertical_sync_enabled;
-		ifs >> antialiazing_level;
-	}
-	ifs.close();
-
-	this->fullscreen = fullscreen;
-	this->windowSettings.antialiasingLevel = antialiazing_level;
-	if(this->fullscreen)
-	  this->window = new sf::RenderWindow(window_bounds,title,sf::Style::Fullscreen,windowSettings);
+	if(this->gfSettings.fullscreen)
+	  this->window = new sf::RenderWindow(
+		  this->gfSettings.resolution,this->gfSettings.title,
+		  sf::Style::Fullscreen,this->gfSettings.contextSettings);
 	else
-		this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Titlebar| sf::Style::Close, windowSettings);
+		this->window = new sf::RenderWindow(this->gfSettings.resolution, this->gfSettings.title, 
+			sf::Style::Titlebar| sf::Style::Close, this->gfSettings.contextSettings);
 
-	this->window->setFramerateLimit(framerate_limit);
-	this->window->setVerticalSyncEnabled(vertical_sync_enabled);
+	this->window->setFramerateLimit(this->gfSettings.framRateLimit);
+	this->window->setVerticalSyncEnabled(this->gfSettings.verticalSync);
 }
 
 void Game::initKeys()
@@ -67,16 +62,17 @@ void Game::initKeys()
 
 void Game::initStates()
 {
-	this->states.push(new MainMenuState(this->window, &this->supportedKeys,&this->states));
+	this->states.push(new MainMenuState(this->window,this->gfSettings,&this->supportedKeys,&this->states));
 }
-
 
 //Constructor Destructur
 Game::Game()
 {
 	this->initVariables();
+	this->initGraphicsSettings();
 	this->initWindow();
 	this->initKeys();
+	this->initStateData();
 	this->initStates();
 }
 

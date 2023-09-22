@@ -84,8 +84,8 @@ void SettingsState::initText()
 }
 
 
-SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-	:State(window,supportedKeys,states)
+SettingsState::SettingsState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
+	:State(window,supportedKeys,states),gfxSettings(gfxSettings)
 {
 	this->initVariables();
 	this->initBackGround();
@@ -135,7 +135,9 @@ void SettingsState::updateGui(const float& dt)
 
 		if (this->buttons["APPLY"]->isPressed())
 		{
-			this->window->create(this->modes[this->dropdownList["RESOLUTION"]->getActiveElemtnId()],"Test",sf::Style::Default );
+			this->gfxSettings.resolution = this->modes[this->dropdownList["RESOLUTION"]->getActiveElemtnId()];
+			
+			this->window->create(this->gfxSettings.resolution,this->gfxSettings.title,sf::Style::Default );
 		}
 
 	for (auto& it : this->dropdownList)
