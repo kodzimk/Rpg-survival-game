@@ -12,7 +12,7 @@ class MainMenuState :
 {
 private:
     //Variables
-    GraphicsSettings& gfxSettings;
+ 
     sf::RectangleShape background;
     sf::Texture backgroundTexture;
     sf::Font font;
@@ -28,7 +28,7 @@ private:
     void initButtons();
 
 public:
-    MainMenuState(sf::RenderWindow* window,GraphicsSettings& gfxSettings, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+    MainMenuState(StateData* state_data);
     virtual ~MainMenuState();
 
     //Functions

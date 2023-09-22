@@ -52,8 +52,8 @@ void GameState::initPlayers()
 	this->player = new Player(0,0,this->textures["PLAYER_SHEET"]);
 }
 
-GameState::GameState(sf::RenderWindow* window,std::map<std::string,int>* supportedKeys, std::stack<State*>* states)
-	: State(window,supportedKeys,states)
+GameState::GameState(StateData* state_data)
+	: State(state_data)
 {
 	this->initKeybinds();
 	this->initFonts();

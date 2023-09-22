@@ -51,8 +51,8 @@ void EditorState::initButtons()
 	
 }
 
-EditorState::EditorState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states)
+EditorState::EditorState(StateData* state_data)
+	: State(state_data)
 {
 	this->initVariables();
 	this->initBackGround();

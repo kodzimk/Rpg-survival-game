@@ -7,6 +7,7 @@
 
 class Plyer;
 class GraphicsSettings;
+class State;
 
 class StateData {
 public:
@@ -25,7 +26,7 @@ class State
 private:
 	
 protected:
-
+	StateData* stateData;
 	std::stack<State*>* states;
 	sf::RenderWindow* window;
 	std::map < std::string, int>* supportedKeys;
@@ -47,7 +48,7 @@ protected:
 	virtual void initKeybinds() = 0;
 
 public:
-	State(StateData& state_data);
+	State(StateData* state_data);
 	virtual ~State();
 
 	//Accessors
