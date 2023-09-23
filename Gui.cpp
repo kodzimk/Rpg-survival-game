@@ -25,8 +25,8 @@ gui::Button::Button(float x, float y, float width, float height, sf::Font* font,
 	this->text.setFillColor(text_idle_color);
 	this->text.setCharacterSize(character_size);
 	this->text.setPosition(
-	  this->shape.getPosition().x+ (this->shape.getGlobalBounds().width / 2.f)- this->text.getGlobalBounds().width / 2.f,
-	  this->shape.getPosition().y+ (this->shape.getGlobalBounds(). height/ 2.f) - this->text.getGlobalBounds().height / 2.f
+		this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f,
+		this->shape.getPosition().y
 	);
 
 
@@ -79,13 +79,13 @@ void gui::Button::setId(const unsigned id)
 }
 
 //Functions
-void gui::Button::update(const sf::Vector2f& mousePos)
+void gui::Button::update(const sf::Vector2i& mousePosWindow)
 {
 
 	this->buttonState = BTN_IDLE;
 
 	//Hover
-	if (this->shape.getGlobalBounds().contains(mousePos))
+	if (this->shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow)))
 	{
 		this->buttonState = BTN_HOVER;
 
@@ -192,11 +192,11 @@ void gui::DropDownList::updateKeytime(const float& dt)
 }
 
 
-void gui::DropDownList::update(const sf::Vector2f& mousePos,const float& dt)
+void gui::DropDownList::update(const sf::Vector2i& mousePosWindow,const float& dt)
 {
 	this->updateKeytime(dt);
 
-	this->activeElement->update(mousePos);
+	this->activeElement->update(mousePosWindow);
 
 
 	if (this->activeElement->isPressed() && this->getKeytime())
@@ -211,7 +211,7 @@ void gui::DropDownList::update(const sf::Vector2f& mousePos,const float& dt)
 	{
 		for (auto& i : this->list)
 		{
-			i->update(mousePos);
+			i->update(mousePosWindow);
 
 			if (i->isPressed() && this->getKeytime())
 			{
@@ -246,7 +246,7 @@ gui::TextureSelector::TextureSelector(
 	sf::Font& font, std::string text)
 	:keytime(0.f),keytimeMax(1.f)
 {
-	float offset = 60.f;
+	float offset = 100.f;
 	this->gridSize = gridSize;
 	this->active = false;
 	this->hidden = false;
@@ -280,11 +280,11 @@ gui::TextureSelector::TextureSelector(
 	this->textureRect.width = static_cast<int>(gridSize);
 	this->textureRect.height = static_cast<int>(gridSize);
 
-	this->hide_btn = new gui::Button(x,y, 50.f, 50.f, &font,
-		text, 20,
-		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
-		sf::Color(100, 100, 100, 0),
-		sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));;
+	this->hide_btn = new gui::Button(
+		x,y, 50.f, 50.f,
+		&font,text, 24,
+		sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 250), sf::Color(255, 255, 255, 50),
+		sf::Color(100, 100, 100, 200),sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50));;
 
 }
 
@@ -325,7 +325,7 @@ void gui::TextureSelector::updateKeytime(const float& dt)
 void gui::TextureSelector::update(const sf::Vector2i& mousePosWindow,const float& dt)
 {
 	this->updateKeytime(dt);
-	this->hide_btn->update(static_cast<sf::Vector2f>(mousePosWindow));
+	this->hide_btn->update(mousePosWindow);
 
 	if (this->hide_btn->isPressed() && this->getKeytime())
 	{
