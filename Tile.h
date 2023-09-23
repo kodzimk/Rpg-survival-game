@@ -21,7 +21,7 @@ public:
 
 	//Functions
 	const sf::Vector2f& getPosition()const;
-	const bool& getCollision()const;
+	const bool& getCollision() const;
 	const std::string getAsString()const;
 
 	void update();

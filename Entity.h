@@ -30,6 +30,7 @@ public:
 
 	//Accesors
 	virtual const sf::Vector2f& getPosition()const;
+	virtual const sf::Vector2u getGridPosition(const unsigned gridSizeu)const;
 	virtual const sf::FloatRect getGloabalBounds()const;
 
 	//Modifiers

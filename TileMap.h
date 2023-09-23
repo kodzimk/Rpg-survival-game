@@ -23,6 +23,13 @@ private:
 
 	sf::RectangleShape collisionBox;
 
+	//Culling 
+	int fromX;
+	int toX;
+	int fromY;
+	int toY;
+	int layer;
+
 
 public:
 	TileMap(float gridSize, unsigned width, unsigned height,std::string texture_file);

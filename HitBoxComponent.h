@@ -7,6 +7,7 @@ class HitBoxComponent
 private:
 	sf::Sprite& sprite;
 	sf::RectangleShape hitbox;
+	sf::FloatRect nextPosition;
 	float offsetX;
 	float offsetY;
 
@@ -16,6 +17,7 @@ public:
 
 	//Accessors
 	const sf::Vector2f& getPosition()const;
+	const sf::FloatRect& getNextPosition(sf::Vector2f& velocity);
 
 	//Modifiers
 	void setPosition(const sf::Vector2f& position);
