@@ -28,6 +28,11 @@ public:
 	void createMovementComponent(const float maxVelocity,float acceleration, float deceleration);
 	void createAnimationComponent(sf::Texture& texture_sheet);
 
+	//Accesors
+	virtual const sf::Vector2f& getPosition()const;
+
+	//Modifiers
+
 	//Functions
 	virtual void setPosition(const float x, const float y);
 

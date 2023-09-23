@@ -263,13 +263,20 @@ void EditorState::renderButtons(sf::RenderTarget& target)
 
 void EditorState::renderGui(sf::RenderTarget& target)
 {
-	if(!this->textureSelector->getActive())
-	target.draw(this->selectorRect);
+	if (!this->textureSelector->getActive())
+	{
+		target.setView(this->view);
+		target.draw(this->selectorRect);
+	}
 
+	target.setView(this->window->getDefaultView());
 	this->textureSelector->render(target);
 
-	target.draw(this->cursorText);
+
 	target.draw(this->sidebar);
+
+	target.setView(this->view);
+	target.draw(this->cursorText);
 }
 
 void EditorState::update(const float& dt)
@@ -303,12 +310,16 @@ void EditorState::render(sf::RenderTarget* target)
 	target->setView(this->view);
 	this->tileMap->render(*target);
 
+
 	target->setView(this->window->getDefaultView());
-	this->renderGui(*target);
 	this->renderButtons(*target);
+
+	this->renderGui(*target);
+
 
 	if (this->paused)
 	{
+		target->setView(this->window->getDefaultView());
 		this->pmenu->render(*target);
 	}
 }

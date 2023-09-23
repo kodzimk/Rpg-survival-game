@@ -67,7 +67,6 @@ void SettingsState::initGui()
 		modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
 	}
 
-	
 	this->dropdownList["RESOLUTION"] = new gui::DropDownList(800, 400, 200, 50, font, modes_str.data(), modes_str.size());
 }
 
