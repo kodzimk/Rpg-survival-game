@@ -54,6 +54,8 @@ void EditorState::initGui()
 	this->textureSelector = new gui::TextureSelector(20.f, 20.f, 500.f, 500.f,
 		this->stateData->gridSize,this->tileMap->getTileSheet(),this->font,"TS"
 	);
+
+
 }
 
 
@@ -165,19 +167,19 @@ void EditorState::updateEditorInput(const float& dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_UP"))))
 	{
-		this->view.move(0.f, -this->cameraSpeed);
+		this->view.move(0.f, -std::floor(this->cameraSpeed));
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_DOWN"))))
 	{
-		this->view.move(0.f, this->cameraSpeed);
+		this->view.move(0.f, std::floor(this->cameraSpeed));
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_LEFT"))))
 	{
-		this->view.move(-this->cameraSpeed, 0.f);
+		this->view.move(-std::floor(this->cameraSpeed), 0.f);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_CAMERA_RIGHT"))))
 	{
-		this->view.move(this->cameraSpeed,0.f);
+		this->view.move(std::floor(this->cameraSpeed),0.f);
 	}
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) )

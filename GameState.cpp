@@ -28,7 +28,7 @@ void GameState::initView()
 
 	this->view.setCenter(
 		sf::Vector2f(
-			this->stateData->gfxSettings->resolution.width / 2.f,
+			this->stateData->gfxSettings->resolution.width  / 2.f,
 			this->stateData->gfxSettings->resolution.height / 2.f)
 	);
 }
@@ -113,7 +113,7 @@ GameState::~GameState()
 //Functions
 void GameState::updateView(const float& dt)
 {
-	this->view.setCenter(this->player->getPosition());
+	this->view.setCenter(std::floor(this->player->getPosition().x), std::floor(this->player->getPosition().y));
 }
 
 void GameState::updatePausedMenuButtons()
@@ -148,6 +148,12 @@ void GameState::updateInput(const float& dt)
 	}
 }
 
+void GameState::updateTileMap(const float& dt)
+{
+	this->tileMap->update();
+	this->tileMap->updateCollision(this->player);
+}
+
 void GameState::update(const float& dt)
 {
 	this->updateMousePositions(&this->view);
@@ -161,6 +167,8 @@ void GameState::update(const float& dt)
 		this->updatePlayerInput(dt);
 
 		this->player->update(dt);
+
+		this->updateTileMap(dt);
 	}
 	else
 	{
@@ -174,22 +182,27 @@ void GameState::render(sf::RenderTarget* target )
 	if (!target)
 		target = this->window;
 
-	this->renderTexture.clear();
+	//this->renderTexture.clear();
 
-	this->renderTexture.setView(this->view);
+	//this->renderTexture.setView(this->view);
+
+	target->setView(this->view);
+	this->tileMap->render(*target);
+
+	this->player->render(*target);
   
-	    target->setView(this->view);
+	 /*   target->setView(this->view);
 	    this->tileMap->render(this->renderTexture);
 
-		this->player->render(this->renderTexture);
+		this->player->render(this->renderTexture);*/
 
 		if(this->paused)
 		{
-			this->renderTexture.setView(this->renderTexture.getDefaultView());
+			this->renderTexture.setView(this->window->getDefaultView());
 			this->pmenu->render(*target);
 		}
 
-		this->renderTexture.display();
-		this->renderSprite.setTexture(this->renderTexture.getTexture());
-		target->draw(this->renderSprite);
+		//this->renderTexture.display();
+		//this->renderSprite.setTexture(this->renderTexture.getTexture());
+		//target->draw(this->renderSprite);
 }
