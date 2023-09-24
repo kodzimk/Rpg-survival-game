@@ -49,17 +49,25 @@ const sf::Vector2f& Entity::getPosition() const
 	   return this->sprite.getPosition();
 }
 
-const sf::Vector2u Entity::getGridPosition(const unsigned gridSizeu) const
+const sf::FloatRect Entity::getNextPositionsBounds(const float& dt)
+{
+	if (this->hitboxComponent && this->movementComponent)
+		return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity()*dt);
+
+	return sf::FloatRect(-1.f,-1.f,-1.f,-1.f);
+}
+
+const sf::Vector2i Entity::getGridPosition(const int gridSizeu) const
 {
 	if (this->hitboxComponent)
-		return sf::Vector2u(
-			static_cast<unsigned>(this->hitboxComponent->getPosition().x) /gridSizeu,
-			static_cast<unsigned>(this->hitboxComponent->getPosition().y) / gridSizeu
+		return sf::Vector2i(
+			static_cast<int>(this->hitboxComponent->getPosition().x) /gridSizeu,
+			static_cast<int>(this->hitboxComponent->getPosition().y) / gridSizeu
 		);
 
-	return	 sf::Vector2u(
-		static_cast<unsigned>(this->sprite.getPosition().x) / gridSizeu,
-		static_cast<unsigned>(this->sprite.getPosition().y) / gridSizeu
+	return	 sf::Vector2i(
+		static_cast<int>(this->sprite.getPosition().x) / gridSizeu,
+		static_cast<int>(this->sprite.getPosition().y) / gridSizeu
 	);;
 }
 

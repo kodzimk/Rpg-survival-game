@@ -38,6 +38,7 @@ private:
 
     bool collision;
     short type;
+    int layer;
 
 
     //Functions

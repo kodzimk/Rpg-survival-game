@@ -17,7 +17,7 @@ public:
 
 	//Accessors
 	const sf::Vector2f& getPosition()const;
-	const sf::FloatRect& getNextPosition(sf::Vector2f& velocity);
+	const sf::FloatRect& getNextPosition(sf::Vector2f velocity);
 
 	//Modifiers
 	void setPosition(const sf::Vector2f& position);

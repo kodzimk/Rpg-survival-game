@@ -4,11 +4,13 @@
 
 void EditorState::initView()
 {
-	this->view.setSize(sf::Vector2f(this->stateData->gfxSettings->resolution.width,
-	this->stateData->gfxSettings->resolution.height));
+	this->view.setSize(sf::Vector2f(
+		static_cast<float>(this->stateData->gfxSettings->resolution.width),
+		static_cast<int>(this->stateData->gfxSettings->resolution.height)));
+
 	this->view.setCenter(
-		this->stateData->gfxSettings->resolution.width / 2.f,
-		this->stateData->gfxSettings->resolution.height / 2.f
+		static_cast<int>(this->stateData->gfxSettings->resolution.width) / 2.f,
+		static_cast<int>(this->stateData->gfxSettings->resolution.height) / 2.f
 	);
 }
 
@@ -18,6 +20,7 @@ void EditorState::initVariables()
 	this->collision = false;
 	this->type = TileTypes::DEFAULT;
 	this->cameraSpeed = 10.f;
+	this->layer = 0;
 }
 
 void EditorState::initBackGround()
@@ -104,7 +107,7 @@ void EditorState::initButtons()
 
 void EditorState::initTileMap()
 {
-	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10,
+	this->tileMap = new TileMap(this->stateData->gridSize, 1000, 1000,
 		"Resources/Images/Tiles/tilesheet1.png");
 }
 
@@ -250,7 +253,8 @@ void EditorState::updateGui(const float& dt)
 	ss << this->mousePosView.x << " " << this->mousePosView.y <<
 		"\n" << this->textureRect.left << " " << this->textureRect.top <<
 		"\n" << "Collision" << this->collision <<
-		"\n" << "Type: " << this->type;
+		"\n" << "Type: " << this->type<<
+		"\n"<<"Tiles: " << this->tileMap->getLayerSize(this->mousePosGrid.x,this->mousePosGrid.y,this->layer);
 	this->cursorText.setString(ss.str());
 
 }
@@ -310,11 +314,13 @@ void EditorState::render(sf::RenderTarget* target)
 		target = this->window;
 
 	target->setView(this->view);
-	this->tileMap->render(*target);
-
+	this->tileMap->render(*target,this->mousePosGrid);
+	this->tileMap->renderDeferred(*target);
 
 	target->setView(this->window->getDefaultView());
 	this->renderButtons(*target);
+	
+
 
 	this->renderGui(*target);
 

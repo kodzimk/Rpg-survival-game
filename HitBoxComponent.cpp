@@ -13,7 +13,7 @@ HitBoxComponent::HitBoxComponent(sf::Sprite& sprite, float offeset_x,
 	this->hitbox.setPosition(this->sprite.getPosition().x +offeset_x, this->sprite.getPosition().y + offset_y);
 	this->hitbox.setSize(sf::Vector2f(width, height));
 	this->hitbox.setFillColor(sf::Color::Transparent);
-	this->hitbox.setOutlineThickness(1.f);
+	this->hitbox.setOutlineThickness(-1.f);
 	this->hitbox.setOutlineColor(sf::Color::Green);
 	
 }
@@ -28,7 +28,7 @@ const sf::Vector2f& HitBoxComponent::getPosition() const
 	return this->hitbox.getPosition();
 }
 
-const sf::FloatRect& HitBoxComponent::getNextPosition(sf::Vector2f& velocity) 
+const sf::FloatRect& HitBoxComponent::getNextPosition(sf::Vector2f velocity) 
 {
 	this->nextPosition.left = this->hitbox.getPosition().x + velocity.x;
 	this->nextPosition.top = this->hitbox.getPosition().y + velocity.y;
