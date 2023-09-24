@@ -36,7 +36,7 @@ void Game::initWindow()
 		  sf::Style::Fullscreen,this->gfSettings.contextSettings);
 	else
 		this->window = new sf::RenderWindow(this->gfSettings.resolution, this->gfSettings.title, 
-			sf::Style::Titlebar| sf::Style::Close, this->gfSettings.contextSettings);
+			sf::Style::Titlebar | sf::Style::Close, this->gfSettings.contextSettings);
 
 	this->window->setFramerateLimit(this->gfSettings.framRateLimit);
 	this->window->setVerticalSyncEnabled(this->gfSettings.verticalSync);

@@ -87,6 +87,9 @@
     <ClCompile Include="GraphicsSettings.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="AttributeComponent.cpp">
+      <Filter>Entities\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="GraphicsSettings.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AttributeComponent.h">
+      <Filter>Entities\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@ Player::Player(float x,float y,sf::Texture& texture_sheet)
 	this->createHitBoxComponent(this->sprite,86.f,74.f,86.f,111.f);
 	this->createMovementComponent(350.f, 1500.f, 500.f);
 	this->createAnimationComponent(texture_sheet);
+	this->createAttributeComponent(1);
 
 	this->animationComponent->addAnimation("IDLE", 11.f, 0, 0, 13, 0,192,192);
 	this->animationComponent->addAnimation("WALK", 6.f, 0, 1, 11, 1, 192, 192);
@@ -105,12 +106,19 @@ void Player::updateAnimations(const float& dt)
 
 void Player::update(const float& dt)
 {
-		this->movementComponent->update(dt);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		this->attributeComponent->gainExp(20);
+	}
 
-		this->updateAttack();
-		this->updateAnimations(dt);
+	std::cout << this->attributeComponent->exp << "\n";
 
-		this->hitboxComponent->update();
+	this->movementComponent->update(dt);
+
+	this->updateAttack();
+	this->updateAnimations(dt);
+
+	this->hitboxComponent->update();
 }
 
 void Player::render(sf::RenderTarget& target)
