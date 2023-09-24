@@ -12,7 +12,7 @@ void TileMap::clear()
 				for (size_t k = 0; k < this->map[x][y][z].size(); k++)
 				{
 					delete this->map[x][y][z][k];
-
+					this->map[x][y][z][k] = NULL;
 				}
 				this->map[x][y][z].clear();
 			}
@@ -204,6 +204,10 @@ void TileMap::loadFromFile(const std::string file_name)
 				for (int z = 0; z < this->layers; z++)
 				{
 					this->map[x][y].resize(this->layers, std::vector<Tile*>());
+					for (int i = 0; i < this->map[x][y][this->layer].size(); i++)
+					{
+						this->map[x][y][this->layer][i] = NULL;
+					}
 				}
 			}
 		}

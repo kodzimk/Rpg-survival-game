@@ -59,7 +59,7 @@ const std::string Tile::getAsString() const
 {
 	std::stringstream ss;
 
-	ss << this->shape.getTextureRect().left << " " << this->shape.getGlobalBounds().top
+	ss << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top
 		<< " " <<this->collision << " " << this->type;
 
 	return ss.str();

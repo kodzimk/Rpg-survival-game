@@ -54,7 +54,7 @@ void EditorState::initGui()
 	this->selectorRect.setTexture(this->tileMap->getTileSheet());
 	this->selectorRect.setTextureRect(this->textureRect);
 
-	this->textureSelector = new gui::TextureSelector(20.f, 20.f, 500.f, 500.f,
+	this->textureSelector = new gui::TextureSelector(20.f, 20.f, 800.f, 200.f,
 		this->stateData->gridSize,this->tileMap->getTileSheet(),this->font,"TS"
 	);
 
@@ -148,10 +148,10 @@ void EditorState::updatePauseMenuButtons()
 	if (this->pmenu->isButtonsPressed("QUIT"))
 		this->endState();
 	if (this->pmenu->isButtonsPressed("SAVE"))
-		this->tileMap->saveToFile("text.slmp");
+		this->tileMap->saveToFile("text.txt");
 
 	if (this->pmenu->isButtonsPressed("LOAD"))
-		this->tileMap->loadFromFile("text.slmp");
+		this->tileMap->loadFromFile("text.txt");
 }
 
 

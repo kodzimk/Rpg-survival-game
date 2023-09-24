@@ -6,7 +6,7 @@ AttributeComponent::AttributeComponent(unsigned level)
 	this->level = level;
 	this->exp = 0;
 	this->expNext = static_cast<unsigned>((50/3) *(pow(this->level,3) - 6 * pow(this->level,2)+ (this->level*17) - 12));
-	this->attributePoints = 3;
+	this->attributePoints = 2;
 
 	this->vitailty = 1;
 	this->strength = 1;
@@ -14,6 +14,7 @@ AttributeComponent::AttributeComponent(unsigned level)
 	this->agility = 1;
 	this->intelligence = 1;
 
+	this->updateLevel();
 	this->updateStates(true);
 
 }
