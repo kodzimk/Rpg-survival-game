@@ -1,6 +1,23 @@
 #include"stdafx.h"
 #include "Gui.h"
 
+const float gui::p2pX(const float percent, const sf::VideoMode& vm)
+{
+	return std::floor(static_cast<float>(vm.width) * (percent / 100.f));
+}
+
+const float gui::p2pY(const float percent, const sf::VideoMode& vm)
+{
+	return std::floor(static_cast<float>(vm.height) * (percent / 100.f));
+}
+
+const unsigned gui::calcCharSize(const sf::VideoMode& vm)
+{
+	return static_cast<unsigned>((vm.width + vm.height) / 60);
+}
+
+
+
 gui::Button::Button(float x, float y, float width, float height, sf::Font* font,
 	std::string text, unsigned character_size,sf::Color text_idle_color,
 	sf::Color text_hover_color, sf::Color text_active_color,

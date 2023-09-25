@@ -3,10 +3,10 @@ class AttributeComponent
 {
 public:
 	//Lvelings
-	unsigned level;
-	unsigned exp;
-	unsigned expNext;
-	unsigned attributePoints;
+	int level;
+	int exp;
+	int expNext;
+	int attributePoints;
 
 
 	//Attributes
@@ -26,12 +26,12 @@ public:
 	int luck;
 
 	//Constructor distructor
-	AttributeComponent(unsigned level);
+	AttributeComponent(int level);
 	virtual ~AttributeComponent();
 
 	//Functions
 
-	void gainExp(const unsigned xp);
+	void gainExp(const int xp);
 
 	void updateLevel();
 	void updateStates(const bool reset);

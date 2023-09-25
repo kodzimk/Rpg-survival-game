@@ -58,6 +58,9 @@ public:
 	
 
 	//Functions
+
+
+
 	virtual void updateMousePositions(sf::View* view  = NULL);
 	void endState();
 	void pauseState();
