@@ -19,7 +19,15 @@ public:
 	Player(float x, float y, sf::Texture& texture_sheet);
 	virtual ~Player();
 
+
+	//Accesors
+	AttributeComponent* getAttributeComponent();
+
 	//Functions
+	void loseHP(const int hp);
+	void gainHP(const int hp);
+	void loseEXP(const unsigned exp);
+	void gainEXP(const unsigned exp);
 	void updateAttack();
 	void updateAnimations(const float& dt);
 	 void update(const float& dt);

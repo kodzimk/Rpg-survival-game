@@ -83,6 +83,11 @@ void GameState::initPlayers()
 	this->player = new Player(0,0,this->textures["PLAYER_SHEET"]);
 }
 
+void GameState::initPlayerGUI()
+{
+	this->playerGUI = new PlayerGUI(this->player);
+}
+
 void GameState::initTileMap()
 {
 	this->tileMap = new TileMap(this->stateData->gridSize, 100, 100,
@@ -100,6 +105,7 @@ GameState::GameState(StateData* state_data)
 	this->initTextures();
 	this->initPauseMenu();
 	this->initPlayers();
+	this->initPlayerGUI();
 	this->initTileMap();
 }
 
@@ -108,6 +114,7 @@ GameState::~GameState()
 	delete this->pmenu;
 	delete this->player;
 	delete this->tileMap;
+	delete this->playerGUI;
 }
 
 //Functions
@@ -131,10 +138,26 @@ void GameState::updatePlayerInput(const float& dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
 		this->player->move( 1.f, 0.f,dt);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
-		this->player->move( 0, -1.f,dt);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
-		this->player->move( 0, 1.f,dt );
+	{
+		this->player->move(0, -1.f, dt);
 
+		if (this->getKeytime())
+			this->player->gainEXP(1);
+		
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
+	{
+		this->player->move(0, 1.f, dt);
+
+		if(this->getKeytime())
+		   this->player->loseEXP(1);
+	}
+
+}
+
+void GameState::updatePlayerGUI(const float& dt)
+{
+	this->playerGUI->update(dt);
 }
 
 void GameState::updateInput(const float& dt)
@@ -170,6 +193,8 @@ void GameState::update(const float& dt)
 
 		this->player->update(dt);
 
+		this->playerGUI->update(dt);
+
 	}
 	else
 	{
@@ -189,7 +214,11 @@ void GameState::render(sf::RenderTarget* target)
 	this->tileMap->render(this->renderTexture,this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
 
 	this->player->render(this->renderTexture);
+
 	this->tileMap->renderDeferred(this->renderTexture);
+
+	this->renderTexture.setView(this->renderTexture.getDefaultView());
+	this->playerGUI->render(this->renderTexture);
 	
 		if(this->paused)
 		{

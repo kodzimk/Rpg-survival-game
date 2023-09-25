@@ -246,7 +246,7 @@ gui::TextureSelector::TextureSelector(
 	sf::Font& font, std::string text)
 	:keytime(0.f),keytimeMax(1.f)
 {
-	float offset = 100.f;
+	float offset = gridSize;
 	this->gridSize = gridSize;
 	this->active = false;
 	this->hidden = false;
