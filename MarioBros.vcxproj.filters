@@ -22,14 +22,14 @@
     <Filter Include="Entities\Components">
       <UniqueIdentifier>{cd9f78b5-596f-41d9-8cdc-5393d237b312}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tile">
-      <UniqueIdentifier>{457357e5-888c-4ae2-8050-b7ffc896d43b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{fc4caccd-5f3a-4164-98ec-bf6e4dcd80b5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Map">
       <UniqueIdentifier>{6e179ee8-75f4-431c-b747-02a15534e5c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Tile">
+      <UniqueIdentifier>{457357e5-888c-4ae2-8050-b7ffc896d43b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,7 +67,7 @@
       <Filter>Entities\Components</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp">
-      <Filter>Tile</Filter>
+      <Filter>States\Tile</Filter>
     </ClCompile>
     <ClCompile Include="PauseMenu.cpp">
       <Filter>GUI</Filter>
@@ -126,7 +126,7 @@
       <Filter>Entities\Components</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>Tile</Filter>
+      <Filter>States\Tile</Filter>
     </ClInclude>
     <ClInclude Include="PauseMenu.h">
       <Filter>GUI</Filter>

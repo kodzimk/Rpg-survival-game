@@ -23,6 +23,9 @@ private:
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
 
+
+
+
     sf::Font font;
     PauseMenu* pmenu;
 

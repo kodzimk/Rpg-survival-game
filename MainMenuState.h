@@ -17,7 +17,7 @@ private:
     sf::Texture backgroundTexture;
     sf::Font font;
     
-
+    sf::RectangleShape btnBackground;
     std::map<std::string, gui::Button*> buttons;
 
     //Functions

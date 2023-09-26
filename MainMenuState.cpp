@@ -54,6 +54,13 @@ void MainMenuState::initGui()
 
 	this->background.setTexture(&this->backgroundTexture);
 	
+	this->btnBackground.setSize(sf::Vector2f(
+	static_cast<float>(vm.width / 5),
+		static_cast<float>(vm.height)
+	));
+
+	this->btnBackground.setPosition(gui::p2pX(11.5f, vm), 0.f);
+	this->btnBackground.setFillColor(sf::Color(10, 10, 10, 220));
 	
 	this->buttons["GAME_STATE"] = new gui::Button(gui::p2pX(15.6f,vm), 
 		gui::p2pY(44.4f,vm), gui::p2pX(13.f,vm), gui::p2pY(6.f,vm), &this->font,
@@ -100,7 +107,7 @@ MainMenuState::MainMenuState(StateData* state_data)
 	this->initVariables();
 	this->initFonts();
 	this->initKeybinds();
-
+	this->initGui();
 	this->resetGui();
 }
 
@@ -174,6 +181,7 @@ void MainMenuState::render(sf::RenderTarget* target)
 
 
 	target->draw(this->background);
+	target->draw(this->btnBackground);
 
 	this->renderButtons(*target);
 

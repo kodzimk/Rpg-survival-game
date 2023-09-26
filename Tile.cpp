@@ -72,6 +72,7 @@ void Tile::update()
 
 void Tile::render(sf::RenderTarget& target)
 {
-	target.draw(this->shape);
+
+		target.draw(this->shape);
 }
 

@@ -63,11 +63,12 @@ void GameState::initFonts()
 }
 
 
+
 void GameState::initTextures()
 {
-	if (!this->textures["PLAYER_SHEET"].loadFromFile("Resources/Images/Sprites/Player/PLAYER_SHEET.png"))
+	if (!this->textures["PLAYER_SHEET"].loadFromFile("Resources/Images/Sprites/Player/PLAYER_SHEET2.png"))
 	{
-		throw"ERROR GAMESTATE COULD NOT LOAD TEXTURE";
+		throw "ERROR GAMESTATE COULD NOT LOAD TEXTURE";
 	}
 }
 
@@ -92,7 +93,7 @@ void GameState::initPlayerGUI()
 void GameState::initTileMap()
 {
 	this->tileMap = new TileMap(this->stateData->gridSize, 100, 100,
-		"Resources/Images/Tiles/tilesheet1.png");
+		"Resources/Images/Tiles/tilesheet3.png");
 	this->tileMap->loadFromFile("text.txt");
 }
 
@@ -105,6 +106,7 @@ GameState::GameState(StateData* state_data)
 	this->initFonts();
 	this->initTextures();
 	this->initPauseMenu();
+
 	this->initPlayers();
 	this->initPlayerGUI();
 	this->initTileMap();
@@ -121,7 +123,26 @@ GameState::~GameState()
 //Functions
 void GameState::updateView(const float& dt)
 {
-	this->view.setCenter(std::floor(this->player->getPosition().x), std::floor(this->player->getPosition().y));
+	this->view.setCenter(
+		std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width /2)) / 10.f),
+		std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f));
+
+	if (this->view.getCenter().x - this->view.getSize().x / 2.f < 0.f)
+	{
+		this->view.setCenter(0.f +this->view.getSize().x / 2.f, this->view.getCenter().y);
+	}
+	else if (this->view.getCenter().x + this->view.getSize().x / 2.f > 3000.f)
+	{
+		this->view.setCenter(3000.f - this->view.getSize().x / 2.f, this->view.getCenter().y);
+	}
+	if (this->view.getCenter().y - this->view.getSize().y / 2.f < 0.f)
+	{
+		this->view.setCenter(this->view.getCenter().y, 0.f+ this->view.getSize().y / 2.f);
+	}
+	else if (this->view.getCenter().y + this->view.getSize().y / 2.f > 3000.f)
+	{
+		this->view.setCenter(this->view.getCenter().x,  3000.f - this->view.getSize().y /2.f);
+	}
 }
 
 void GameState::updatePausedMenuButtons()
@@ -212,9 +233,10 @@ void GameState::render(sf::RenderTarget* target)
 	this->renderTexture.clear();
 
 	this->renderTexture.setView(this->view);
-	this->tileMap->render(this->renderTexture,this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
+	this->tileMap->render(this->renderTexture,this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)),	
+		false);
 
-	this->player->render(this->renderTexture);
+	this->player->render(this->renderTexture,false);
 
 	this->tileMap->renderDeferred(this->renderTexture);
 

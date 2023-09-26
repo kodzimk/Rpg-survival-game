@@ -42,7 +42,8 @@ public:
 
 	//Functions
 	void update();
-	void render(sf::RenderTarget& target,const sf::Vector2i& gridPosition);
+	void render(sf::RenderTarget& target,const sf::Vector2i& gridPosition,
+		const bool show_collision = false);
 
 	void updateCollision(Entity* entity, const float& dt);
 

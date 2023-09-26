@@ -38,6 +38,7 @@ public:
 
 	//Accesors
 	virtual const sf::Vector2f& getPosition()const;
+	virtual const sf::Vector2f getCenter()const;
 	virtual const sf::FloatRect getNextPositionsBounds(const float& dt);
 	virtual const sf::Vector2i getGridPosition(const int gridSizeu)const;
 	virtual const sf::FloatRect getGloabalBounds()const;
@@ -53,7 +54,7 @@ public:
 	virtual void stopVelocityY();
 
 	virtual void update(const float& dt) = 0;
-	virtual void render(sf::RenderTarget& target) = 0;
+	virtual void render(sf::RenderTarget& target,const bool show_hitox) = 0;
 	
 };
 #endif

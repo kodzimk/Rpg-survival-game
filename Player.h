@@ -10,6 +10,8 @@ class Player:public Entity
 private:
 	//Variables
 	bool attacking;
+	sf::Sprite weapon_sprite;
+	sf::Texture weapon_texture;
 
 
 	//Initialzier functions
@@ -31,7 +33,7 @@ public:
 	void updateAttack();
 	void updateAnimations(const float& dt);
 	 void update(const float& dt);
-	 void render(sf::RenderTarget& target);
+	 void render(sf::RenderTarget& targetm, const bool show_hitbox = false);
 };
 #endif
 
