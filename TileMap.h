@@ -44,6 +44,8 @@ public:
 	void update();
 	void render(sf::RenderTarget& target,const sf::Vector2i& gridPosition,
 		const bool show_collision = false);
+	const sf::Vector2i& getMaxSizeGrid()const;
+	const sf::Vector2f& getMaxSizeF()const;
 
 	void updateCollision(Entity* entity, const float& dt);
 

@@ -53,7 +53,7 @@ public:
 	virtual void stopVelocityX();
 	virtual void stopVelocityY();
 
-	virtual void update(const float& dt) = 0;
+	virtual void update(const float& dt, sf::Vector2f& mousePis) = 0;
 	virtual void render(sf::RenderTarget& target,const bool show_hitox) = 0;
 	
 };

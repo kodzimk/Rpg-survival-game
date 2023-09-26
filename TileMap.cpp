@@ -251,13 +251,13 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition,
 {
 	this->layer = 0;
 
-	this->fromX = gridPosition.x - 12;
+	this->fromX = gridPosition.x - 14;
 	if (this->fromX < 0)
 		this->fromX = 0;
 	else if (this->fromX > this->maxSizeWorldGrid.x)
 		this->fromX = this->maxSizeWorldGrid.x;
 
-	this->toX = gridPosition.x + 13;
+	this->toX = gridPosition.x + 15;
 	if (this->toX < 0)
 		this->toX = 0;
 	else if (this->toX > this->maxSizeWorldGrid.x)
@@ -269,7 +269,7 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition,
 	else if (this->fromY > this->maxSizeWorldGrid.y)
 		this->fromY = this->maxSizeWorldGrid.y;
 
-	this->toY = gridPosition.y + 10;
+	this->toY = gridPosition.y + 9;
 	if (this->toY < 0)
 		this->toY = 0;
 	else if (this->toY > this->maxSizeWorldGrid.y)
@@ -334,6 +334,16 @@ void TileMap::render(sf::RenderTarget& target, const sf::Vector2i& gridPosition,
 		//}
 	
 	
+}
+
+const sf::Vector2i& TileMap::getMaxSizeGrid() const
+{
+	return this->maxSizeWorldGrid;
+}
+
+const sf::Vector2f& TileMap::getMaxSizeF() const
+{
+	return this->maxSizeWorldF;
 }
 
 void TileMap::updateCollision(Entity* entity, const float& dt)

@@ -30,7 +30,9 @@ public:
 	virtual ~AttributeComponent();
 
 	//Functions
-
+	void loseHP(const int hp);
+	void gainHP(const int hp);
+	void loseEXP(const int exp);
 	void gainExp(const int xp);
 
 	void updateLevel();

@@ -23,7 +23,7 @@ private:
     sf::RenderTexture renderTexture;
     sf::Sprite renderSprite;
 
-
+    sf::Vector2i viewGridPosition;
 
 
     sf::Font font;

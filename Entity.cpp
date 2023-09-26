@@ -132,7 +132,7 @@ void Entity::stopVelocityY()
 		this->movementComponent->stopVelocityY();
 }
 
-void Entity::update(const float& dt)
+void Entity::update(const float& dt, sf::Vector2f& mousePis)
 {
 	
 }

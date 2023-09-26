@@ -143,6 +143,10 @@ void GameState::updateView(const float& dt)
 	{
 		this->view.setCenter(this->view.getCenter().x,  3000.f - this->view.getSize().y /2.f);
 	}
+
+	this->viewGridPosition.x = static_cast<int>(this->view.getCenter().x) / static_cast<int>(this->stateData->gridSize);
+	this->viewGridPosition.y = static_cast<int>(this->view.getCenter().y) / static_cast<int>(this->stateData->gridSize);
+
 }
 
 void GameState::updatePausedMenuButtons()
@@ -213,7 +217,7 @@ void GameState::update(const float& dt)
 
 		this->updateTileMap(dt);
 
-		this->player->update(dt);
+		this->player->update(dt,this->mousePosView);
 
 		this->playerGUI->update(dt);
 

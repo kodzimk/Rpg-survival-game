@@ -35,6 +35,10 @@ Player::Player(float x,float y,sf::Texture& texture_sheet)
 
 	this->weapon_texture.loadFromFile("Resources/Images/Sprites/Player/sword.png");
 	this->weapon_sprite.setTexture(this->weapon_texture);
+
+	this->weapon_sprite.setOrigin(
+		this->weapon_sprite.getGlobalBounds().width / 2.f,
+		this->weapon_sprite.getGlobalBounds().height);
 }
 
 Player::~Player() {
@@ -51,25 +55,19 @@ AttributeComponent* Player::getAttributeComponent()
 //Functions
 void Player::loseHP(const int hp)
 {
-	this->attributeComponent->hp -= hp;
+	this->attributeComponent->loseHP(hp);
 
-	if (this->attributeComponent->hp < 0)
-		this->attributeComponent->hp = 0;
 
 }
 
 void Player::gainHP(const int hp)
 {
-	this->attributeComponent->hp += hp;
-
-	if (this->attributeComponent->hp > this->attributeComponent->hpMax)
-		this->attributeComponent->hp = this->attributeComponent->hpMax;
+	this->attributeComponent->gainHP(hp);
 }
 
 void Player::loseEXP(const int exp)
 {
-	if (this->attributeComponent->exp >= exp)
- 	this->attributeComponent->exp -= exp;
+	this->attributeComponent->loseEXP(exp);
 }
 
 void Player::gainEXP(const int exp)
@@ -81,7 +79,7 @@ void Player::updateAttack()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		//this->attacking = true;
+		this->attacking = true;
 	}
 }
 
@@ -90,28 +88,7 @@ void Player::updateAnimations(const float& dt)
 
 	if (this->attacking)
 	{
-		if (this->sprite.getScale().x > 0.f)
-		{
-			this->sprite.setOrigin(96.f, 0.f);
-		}
-		else 
-		{
-			this->sprite.setOrigin(258.f + 96.f, 0.f);
-		}
-
-		if (this->animationComponent->play("ATTACK", dt, true))
-		{
-
-			this->attacking = false;
-			if (this->sprite.getScale().x > 0.f)
-			{
-				this->sprite.setOrigin(0.f, 0.f);
-			}
-			else
-			{
-				this->sprite.setOrigin(258.f, 0.f);
-			}
-		}
+		
 	}
 
 	if (this->movementComponent->getState(IDLE))
@@ -136,7 +113,7 @@ void Player::updateAnimations(const float& dt)
 	}
 }
 
-void Player::update(const float& dt)
+void Player::update(const float& dt, sf::Vector2f& mouse_pos_view)
 {
 	this->movementComponent->update(dt);
 
@@ -146,6 +123,13 @@ void Player::update(const float& dt)
 	this->hitboxComponent->update();
 
 	this->weapon_sprite.setPosition(this->getCenter());
+
+	float dx = mouse_pos_view.x - this->weapon_sprite.getPosition().x;
+	float dY = mouse_pos_view.y - this->weapon_sprite.getPosition().y;
+
+	float deg = atan2(dY, dx) * 180 / 3.14;
+
+	this->weapon_sprite.setRotation(deg +90.f);
 }
 
 void Player::render(sf::RenderTarget& target,const bool show_hitbox)

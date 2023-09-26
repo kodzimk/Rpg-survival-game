@@ -32,7 +32,7 @@ public:
 	void gainEXP(const int exp);
 	void updateAttack();
 	void updateAnimations(const float& dt);
-	 void update(const float& dt);
+	 void update(const float& dt,sf::Vector2f& mousePis);
 	 void render(sf::RenderTarget& targetm, const bool show_hitbox = false);
 };
 #endif
