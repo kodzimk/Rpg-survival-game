@@ -7,21 +7,7 @@ void SettingsState::initVariables()
 	this->modes = sf::VideoMode::getFullscreenModes();
 }
 
-void SettingsState::initBackGround()
-{
-	this->background.setSize(
-		sf::Vector2f
-		(
-			static_cast<float>(this->window->getSize().x),
-			static_cast<float>(this->window->getSize().y))
-	);
-	if (!this->backgroundTexture.loadFromFile("Resources/Images/BackGrounds/bg1.png"))
-	{
-		throw"ERORR MAIN MENU TATE: FAILED LOAD BACKGROUND";
-	}
 
-	this->background.setTexture(&this->backgroundTexture);
-}
 
 void SettingsState::initFonts()
 {
@@ -55,6 +41,22 @@ void SettingsState::initGui()
 {
 	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
 
+
+	this->background.setSize(
+		sf::Vector2f
+		(
+			static_cast<float>(vm.width),
+			static_cast<float>(vm.height))
+	);
+
+	if (!this->backgroundTexture.loadFromFile("Resources/Images/BackGrounds/bg1.png"))
+	{
+		throw"ERORR MAIN MENU TATE: FAILED LOAD BACKGROUND";
+	}
+
+
+	this->background.setTexture(&this->backgroundTexture);
+
 	this->buttons["BACK"] = new gui::Button(
 		gui::p2pX(72.f,vm), gui::p2pY(81.5f,vm), gui::p2pX(13.f,vm), 
 		gui::p2pY(6.f,vm), &this->font, "Back", gui::calcCharSize(vm),
@@ -76,18 +78,37 @@ void SettingsState::initGui()
 	this->dropdownList["RESOLUTION"] = new gui::DropDownList(gui::p2pX(42.f,vm),
 		gui::p2pY(42.f,vm), gui::p2pX(10.4f,vm), 
 		gui::p2pY(4.5f,vm), font, modes_str.data(), modes_str.size());
-}
 
-void SettingsState::initText()
-{
+
 	this->optionsText.setFont(this->font);
-	this->optionsText.setPosition(sf::Vector2f(100.f,450.f));
-	this->optionsText.setCharacterSize(30);
-	this->optionsText.setFillColor(sf::Color(255,255,255,200));
+	this->optionsText.setPosition(sf::Vector2f(gui::p2pX(5.2f,vm), gui::p2pY(41.7f,vm)));
+	this->optionsText.setCharacterSize(gui::calcCharSize(vm , 80));
+	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
 
 	this->optionsText.setString(
-		"Resultion \n\nFullscreen\n\nVsync \n\nAntialiasing \n\n" 
+		"Resultion \n\nFullscreen\n\nVsync \n\nAntialiasing \n\n"
 	);
+}
+
+void SettingsState::resetGui()
+{
+	auto it = this->buttons.begin();
+
+	for  (it = this->buttons.begin(); it != this->buttons.end(); it++)
+	{
+		delete it->second;
+	}
+	this->buttons.clear();
+
+	auto it2 = this->dropdownList.begin();
+	for (it2 = this->dropdownList.begin(); it2 != this->dropdownList.end(); it2++)
+	{
+		delete it2->second;
+	}
+
+	this->dropdownList.clear();
+
+	this->initGui();
 }
 
 
@@ -95,11 +116,9 @@ SettingsState::SettingsState(StateData* state_data)
 	:State(state_data)
 {
 	this->initVariables();
-	this->initBackGround();
 	this->initFonts();
 	this->initKeybinds();
 	this->initGui();
-	this->initText();
 }
 SettingsState::~SettingsState()
 {
@@ -145,6 +164,8 @@ void SettingsState::updateGui(const float& dt)
 			this->stateData->gfxSettings->resolution = this->modes[this->dropdownList["RESOLUTION"]->getActiveElemtnId()];
 			
 			this->window->create(this->stateData->gfxSettings->resolution,this->stateData->gfxSettings->title,sf::Style::Default );
+		
+			this->resetGui();
 		}
 
 	for (auto& it : this->dropdownList)

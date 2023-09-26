@@ -7,21 +7,6 @@ void MainMenuState::initVariables()
 
 }
 
-void MainMenuState::initBackGround()
-{
-	this->background.setSize(
-		sf::Vector2f
-		(
-		static_cast<float>(this->window->getSize().x),
-		static_cast<float>(this->window->getSize().y))
-	);
-	if (!this->backgroundTexture.loadFromFile("Resources/Images/BackGrounds/bg1.png"))
-	{
-		throw"ERORR MAIN MENU TATE: FAILED LOAD BACKGROUND";
-	}
-
-	this->background.setTexture(&this->backgroundTexture);
-}
 
 void MainMenuState::initFonts()
 {
@@ -51,10 +36,23 @@ void MainMenuState::initKeybinds()
 
 }
 
-void MainMenuState::initButtons()
+void MainMenuState::initGui()
 {
 
 	const sf::VideoMode& vm = this->stateData->gfxSettings->resolution;
+
+	this->background.setSize(
+		sf::Vector2f
+		(
+			static_cast<float>(vm.width),
+			static_cast<float>(vm.height))
+	);
+	if (!this->backgroundTexture.loadFromFile("Resources/Images/BackGrounds/bg2.png"))
+	{
+		throw"ERORR MAIN MENU TATE: FAILED LOAD BACKGROUND";
+	}
+
+	this->background.setTexture(&this->backgroundTexture);
 	
 	
 	this->buttons["GAME_STATE"] = new gui::Button(gui::p2pX(15.6f,vm), 
@@ -83,14 +81,27 @@ void MainMenuState::initButtons()
 		sf::Color(100, 100, 100, 0),	sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 }
 
+void MainMenuState::resetGui()
+{
+	auto it = this->buttons.begin();
+
+	for (it = this->buttons.begin(); it != this->buttons.end(); ++it)
+	{
+		delete it->second;
+	}
+	this->buttons.clear();
+
+	this->initGui();
+}
+
 MainMenuState::MainMenuState(StateData* state_data)
 	: State(state_data)
 {
 	this->initVariables();
-	this->initBackGround();
 	this->initFonts();
 	this->initKeybinds();
-	this->initButtons();
+
+	this->resetGui();
 }
 
 MainMenuState::~MainMenuState()

@@ -1,7 +1,9 @@
 #pragma once
 
 #include"Player.h"
+#include"Gui.h"
 
+class Gui;
 class Player;
 class RectangleShape;
 
@@ -11,6 +13,7 @@ private:
 	Player* player;
 
 	sf::Font font;
+	sf::VideoMode& vm;
 
 
 	std::string levelBarString;
@@ -38,7 +41,7 @@ private:
 	void initEXPBar();
 
 public:
-	PlayerGUI(Player* player);
+	PlayerGUI(Player* player, sf::VideoMode& vm);
 	virtual ~PlayerGUI();
 
 	//Functions
