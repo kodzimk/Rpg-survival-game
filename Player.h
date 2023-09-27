@@ -2,16 +2,17 @@
 #define PLAYER_H
 
 #include"Entity.h"
+#include"Sword.h"
 
 class Entity;
+class Sword;
 
 class Player:public Entity
 {
 private:
 	//Variables
 	bool attacking;
-	sf::Sprite weapon_sprite;
-	sf::Texture weapon_texture;
+	Sword sword;
 
 
 	//Initialzier functions

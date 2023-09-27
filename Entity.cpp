@@ -6,6 +6,8 @@ void Entity::initVariables()
 	this->hitboxComponent = NULL;
 	this->movementComponent = NULL;
 	this->animationComponent = NULL;
+	this->skillComponent = NULL;
+	this->attributeComponent = NULL;
 }
 
 Entity::Entity()
@@ -19,6 +21,12 @@ Entity::~Entity()
 	delete this->movementComponent;
 	delete this->animationComponent;
 	delete this->attributeComponent;
+	delete this->skillComponent;
+}
+
+void Entity::createSkillComponenet()
+{
+	this->skillComponent = new SkillComponent();
 }
 
 //Component functions

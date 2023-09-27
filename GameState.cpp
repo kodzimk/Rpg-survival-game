@@ -11,11 +11,13 @@ void GameState::initDeferrefRender()
 
 	this->renderSprite.setTexture(this->renderTexture.getTexture());
 	this->renderSprite.setTextureRect(
-		sf::IntRect(0, 0, 
+		sf::IntRect(0, 0,
 			this->stateData->gfxSettings->resolution.width,
 			this->stateData->gfxSettings->resolution.height
 		)
 	);
+
+	Sword sword;
 }
 
 void GameState::initView()

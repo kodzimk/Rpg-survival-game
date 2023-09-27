@@ -6,7 +6,11 @@
 #include"PauseMenu.h"
 #include"TileMap.h"
 #include"PlayerGUI.h"
+#include"Sword.h"
+#include"Bow.h"
 
+class Bow;
+class Sword;
 class PauseMenu;
 class TileMap;
 class Player;
@@ -35,7 +39,7 @@ private:
 
     TileMap* tileMap;
 
-//Functions
+//Initializer functions
     void initDeferrefRender();
     void initView();
     void initKeybinds();

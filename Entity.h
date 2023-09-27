@@ -5,10 +5,12 @@
 #include"AnimationComponent.h"
 #include"HitBoxComponent.h"
 #include"AttributeComponent.h"
+#include"SkillComponent.h"
 
 class HitBoxComponent;
 class AnimationComponent;
 class MovementComponent;
+class SkillComponent;
 class AttributeComponent;
 
 class Entity
@@ -23,6 +25,7 @@ protected:
 	MovementComponent* movementComponent;
 	AnimationComponent* animationComponent;
 	AttributeComponent* attributeComponent;
+	SkillComponent* skillComponent;
 
 public:
 	Entity();
@@ -30,6 +33,7 @@ public:
 
 
 	//Component Functions
+	void createSkillComponenet();
 	void setTexture(sf::Texture& texture);
 	void createHitBoxComponent(sf::Sprite& sprite,const float offset_x,const float offset_y,float width,float height);
 	void createMovementComponent(const float maxVelocity,float acceleration, float deceleration);

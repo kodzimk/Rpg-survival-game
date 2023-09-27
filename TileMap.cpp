@@ -3,26 +3,28 @@
 
 void TileMap::clear()
 {
-	for (int x = 0; x < this->maxSizeWorldGrid.x; x++)
+	if (!this->map.empty())
 	{
-		for (int y = 0; y < this->maxSizeWorldGrid.y; y++)
+		for (int x = 0; x < this->maxSizeWorldGrid.x; x++)
 		{
-			for (int z = 0; z < this->layers; z++)
+			for (int y = 0; y < this->maxSizeWorldGrid.y; y++)
 			{
-				for (size_t k = 0; k < this->map[x][y][z].size(); k++)
+				for (int z = 0; z < this->layers; z++)
 				{
-					delete this->map[x][y][z][k];
-					this->map[x][y][z][k] = NULL;
+					for (size_t k = 0; k < this->map[x][y][z].size(); k++)
+					{
+						delete this->map[x][y][z][k];
+						this->map[x][y][z][k] = NULL;
+					}
+					this->map[x][y][z].clear();
 				}
-				this->map[x][y][z].clear();
+				this->map[x][y].clear();
 			}
-			this->map[x][y].clear();
+			this->map[x].clear();
 		}
-		this->map[x].clear();
-	}
 
-	this->map.clear();
-	std::cout << map.size() << "\n";
+		this->map.clear();
+	}
 }
 
 TileMap::TileMap(float gridSize,int width,int height,std::string texture_file)
@@ -67,6 +69,24 @@ TileMap::TileMap(float gridSize,int width,int height,std::string texture_file)
 	this->collisionBox.setOutlineThickness(1.f);
 }
 
+TileMap::TileMap(const std::string file_name)
+{
+	this->fromX = 0;
+	this->fromY = 0;
+	this->toX = 0;
+	this->toY = 0;
+	this->layer = 0;
+
+
+	this->loadFromFile(file_name);
+
+	this->collisionBox.setSize(sf::Vector2f(this->gridSizeF, this->gridSizeF));
+	this->collisionBox.setFillColor(sf::Color(255, 0, 0, 50));
+	this->collisionBox.setOutlineColor(sf::Color::Red);
+	this->collisionBox.setOutlineThickness(1.f);
+
+}
+
 TileMap::~TileMap()
 {
 	this->clear();
@@ -81,7 +101,7 @@ const bool TileMap::tileEmpty(const int x, const int y, const int z) const
 		return this->map[x][y][z].empty();
 	}
 
-	throw("PROBLE, CANT TILEMEPTY NIGER");
+	return false;
 }
 
 //Accessors
@@ -201,6 +221,8 @@ void TileMap::loadFromFile(const std::string file_name)
 		this->gridSizeU = static_cast<int>(gridSize);
 		this->maxSizeWorldGrid.x = size.x;
 		this->maxSizeWorldGrid.y = size.y;
+		this->maxSizeWorldF.x = static_cast<float>(size.x * gridSize);
+		this->maxSizeWorldF.y = static_cast<float>(size.y * gridSize);
 		this->layers = layers;
 		this->textureFile = texture_file;
 
