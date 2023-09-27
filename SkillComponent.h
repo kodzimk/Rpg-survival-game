@@ -2,20 +2,24 @@
 #define SKILLCOMPONENT_H
 
 
+enum SKILLS{HEALTH = 0,ATTACK,ACCURACY,ENDURANCE};
+
 class SkillComponent
 {
 private:
 	class Skill
 	{
 	private:
+		int type;
 		int level;
 		int levelCap;
 		int exp;
 		int expNext;
 
 	public:
-		Skill()	
+		Skill(int type)	
 		{
+			this->type = type;
 			this->level = 1;
 			this->exp = 0;
 			this->levelCap = 99;
@@ -23,6 +27,7 @@ private:
 		}
 		~Skill(){}
 
+		inline const int& getType() { return this->type; }
 		inline const int& getLevel() const
 		{
 			return this->level;
@@ -60,7 +65,7 @@ private:
 						if (this->level < this->levelCap)
 						{
 							this->level++;
-							this->expNext = std::pow(this->level, 2) + this->level * 10 + this->level * 2;
+							this->expNext = static_cast<int>(std::pow(this->level, 2)) + this->level * 10 + this->level * 2;
 						}
 					}
 				}
@@ -75,7 +80,7 @@ private:
 						{
 							this->level++;
 							this->exp = 0;
-							this->expNext = std::pow(this->level, 2) + this->level * 10 + this->level * 2;
+							this->expNext = static_cast<int>(std::pow(this->level, 2)) + this->level * 10 + this->level * 2;
 						}
 					}
 				}
@@ -88,13 +93,14 @@ private:
 		}
 	};
 
-	std::map<std::string, Skill> skills;
+	std::vector<Skill> skills;
 
 public:
 	SkillComponent();
 	virtual ~SkillComponent();
 
-	const int getSkill(std::string key)const;
+	const int getSkill(const int index)const;
+	const void gainExp(const int skill, const int exp );
 };
 #endif
 

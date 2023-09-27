@@ -3,14 +3,10 @@
 
 SkillComponent::SkillComponent()
 {
-	this->skills["health"];
-	this->skills["erdurance"];
-	this->skills["ranged"];
-	this->skills["accuracy"];
-	this->skills["defence"];
-
-	this->skills["mining"];
-	this->skills["woodcutting"];
+	this->skills.push_back(Skill(SKILLS::HEALTH));
+	this->skills.push_back(Skill(SKILLS::ATTACK));
+	this->skills.push_back(Skill(SKILLS::ACCURACY));
+	this->skills.push_back(Skill(SKILLS::ENDURANCE));
 }
 
 SkillComponent::~SkillComponent()
@@ -18,10 +14,19 @@ SkillComponent::~SkillComponent()
 
 }
 
-const int SkillComponent::getSkill(std::string key)const
+const int SkillComponent::getSkill(const int index)const
 {
-	if (this->skills.count(key))
-		return this->skills.at(key).getLevel();
-	else
+	if (skills.empty() || index < 0 ||index  >= this->skills.size())
 		throw("SKILL DOESNCT EXIST");
+	return this->skills[index].getLevel();
+}
+
+const void SkillComponent::gainExp(const int skill,const int exp)
+{
+	if (skills.empty() || skill < 0 || skill >= this->skills.size())
+		throw("SKILL DOESNCT EXIST");
+	else
+	{
+		this->skills[skill].gainExp(exp);
+	}
 }

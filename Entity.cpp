@@ -119,9 +119,13 @@ void Entity::move(const float dir_x, const float dir_y, const float& dt)
 {
 	if (this->movementComponent)
 		this->movementComponent->move(dir_x, dir_y, dt);
+
+	if (this->skillComponent)
+	{
+		this->skillComponent->gainExp(SKILLS::ENDURANCE, 1);
+	}
 	
 }
-
 void Entity::stopVelocity()
 {
 	if (this->movementComponent)

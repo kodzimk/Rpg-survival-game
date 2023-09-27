@@ -18,6 +18,8 @@ private:
 	//Initialzier functions
 	void initVariables();
 	void initComponents();
+	void initAnimtions();
+
 public:
 	Player(float x, float y, sf::Texture& texture_sheet);
 	virtual ~Player();
