@@ -72,6 +72,18 @@ TileMap::~TileMap()
 	this->clear();
 }
 
+const bool TileMap::tileEmpty(const int x, const int y, const int z) const
+{
+	if (x > 0 && x < this->maxSizeWorldGrid.x
+		&& y >0 && y < maxSizeWorldGrid.y &&
+		z >= 0 && z < this->layers)
+	{
+		return this->map[x][y][z].empty();
+	}
+
+	throw("PROBLE, CANT TILEMEPTY NIGER");
+}
+
 //Accessors
 const sf::Texture* TileMap::getTileSheet()const
 {

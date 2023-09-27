@@ -354,22 +354,24 @@ void gui::TextureSelector::update(const sf::Vector2i& mousePosWindow,const float
 
 	if (!this->hidden)
 	{
+		this->active = false;
+
 		if (this->bounds.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow)))
-			this->active = true;
-		else
-			this->active = false;
-
-		if (this->active)
 		{
-			this->mousePosGrid.x = (mousePosWindow.x - static_cast<int>(this->bounds.getPosition().x)) / static_cast<unsigned>(this->gridSize);
-			this->mousePosGrid.y = (mousePosWindow.y - static_cast<int>(this->bounds.getPosition().y)) / static_cast<unsigned>(this->gridSize);
+			this->active = true;
 
-			this->selector.setPosition(
-				this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize,
-				this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize);
+			if (this->active)
+			{
+				this->mousePosGrid.x = (mousePosWindow.x - static_cast<int>(this->bounds.getPosition().x)) / static_cast<unsigned>(this->gridSize);
+				this->mousePosGrid.y = (mousePosWindow.y - static_cast<int>(this->bounds.getPosition().y)) / static_cast<unsigned>(this->gridSize);
 
-			this->textureRect.left = static_cast<int>(this->selector.getPosition().x - this->bounds.getPosition().x);
-			this->textureRect.top = static_cast<int>(this->selector.getPosition().y - this->bounds.getPosition().y);
+				this->selector.setPosition(
+					this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize,
+					this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize);
+
+				this->textureRect.left = static_cast<int>(this->selector.getPosition().x - this->bounds.getPosition().x);
+				this->textureRect.top = static_cast<int>(this->selector.getPosition().y - this->bounds.getPosition().y);
+			}
 		}
 	}
 
